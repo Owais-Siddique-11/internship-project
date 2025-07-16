@@ -1,16 +1,25 @@
-const { User } = require('../models');
+const { User } = require("../models");
 
 class UserRepository {
-    async createUser(data){
-        return await User.create(data);
+  async createUser(data) {
+    try {
+      return await User.create(data);
+    } catch (error) {
+      console.log("Error in user repo", error);
+      throw error;
     }
-    async findUserByEmail(email){
-        return await User.findOne({
-            where : {
-                email
-            }
-        });
+  }
+  async findUserByEmail(email) {
+    try {
+      return await User.findOne({
+        where: {
+          email,
+        },
+      });
+    } catch (error) {
+      console.log("Error in user repo", error);
+      throw error;
     }
-
+  }
 }
-module.exports= new UserRepository();
+module.exports = new UserRepository();
