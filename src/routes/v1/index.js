@@ -4,6 +4,7 @@ const router = express.Router();
 const UserController = require('../../controllers/user-controller');
 const PageController = require('../../controllers/page-controller');
 const PostController = require('../../controllers/post-controller');
+const ServiceController = require('../../controllers/service-controller');
 
 // User routes
 router.post('/signup', UserController.signup);
@@ -23,6 +24,13 @@ router.get('/posts/id/:id',PostController.getPostById);
 router.get('/posts/slug/:slug',PostController.getPostBySlug);
 router.put('/posts/:id',PostController.updatePost);
 router.delete('/posts/:id',PostController.deletePost);
+
+// Service routes
+router.post('/services', ServiceController.createService);
+router.get('/services', ServiceController.getAllServices);
+router.get('/services/:id', ServiceController.getServiceById);
+router.put('/services/:id', ServiceController.updateService);
+router.delete('/services/:id', ServiceController.deleteService);
 
 module.exports = router;
 

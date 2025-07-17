@@ -14,12 +14,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Service.init({
-    title: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    imageUrl: DataTypes.STRING
+    title: {
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+    description: {
+      type:DataTypes.TEXT,
+      allowNull:false
+    },
+    imageUrl: {
+      type:DataTypes.STRING,
+      allowNull:true
+    }
   }, {
     sequelize,
     modelName: 'Service',
+    tableName: 'Services',
+    timestamps: true
   });
   return Service;
 };
