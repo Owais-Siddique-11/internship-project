@@ -5,6 +5,7 @@ const UserController = require('../../controllers/user-controller');
 const PageController = require('../../controllers/page-controller');
 const PostController = require('../../controllers/post-controller');
 const ServiceController = require('../../controllers/service-controller');
+const ContactController = require('../../controllers/contact-controller');
 
 // User routes
 router.post('/signup', UserController.signup);
@@ -31,6 +32,12 @@ router.get('/services', ServiceController.getAllServices);
 router.get('/services/:id', ServiceController.getServiceById);
 router.put('/services/:id', ServiceController.updateService);
 router.delete('/services/:id', ServiceController.deleteService);
+
+// contact routes
+router.post('/contacts', ContactController.createContact);
+router.get('/contacts', ContactController.getAllContacts);
+router.get('/contacts/:id', ContactController.getContactById);
+router.delete('/contacts/:id', ContactController.deleteContact);
 
 module.exports = router;
 
