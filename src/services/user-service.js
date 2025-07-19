@@ -1,18 +1,31 @@
 const UserRepository = require("../repository/user-repository");
 const bcrypt = require("bcrypt");
-const {SALT_ROUNDS} = require("../config/serverConfig");
+const { SALT_ROUNDS, ADMIN_SECRET_KEY,JWT_SECRET } = require("../config/serverConfig");
+const jwt = require("jsonwebtoken");
+
 class UserService {
   async signup(data) {
     try {
-      //This is used to check if the email already exists or not
-      const existingUser = await UserRepository.findUserByEmail(data.email);
+      const { email, password, role, secretKey } = data;
+
+      // 1. Check if user already exists
+      const existingUser = await UserRepository.findUserByEmail(email);
       if (existingUser) {
         throw new Error("User already exists with this email");
       }
-      //Use to store hash form of password in DB
-      const hashedPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
+
+      // 2. Admin secret key check
+      if (role === "admin") {
+        if (!secretKey || secretKey !== ADMIN_SECRET_KEY) {
+          throw new Error("Invalid or missing admin secret key");
+        }
+      }
+
+      // 3. Hash the password
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
       data.password = hashedPassword;
-      //Create the user
+
+      // 4. Create user
       const response = await UserRepository.createUser(data);
       return response;
     } catch (error) {
@@ -20,14 +33,14 @@ class UserService {
       throw error;
     }
   }
+
   async login(data) {
     try {
-      // Finding the Email in DB if exist or not
       const user = await UserRepository.findUserByEmail(data.email);
       if (!user) {
         throw new Error("User not found with this email");
       }
-      // Password check if the password is correct or not
+
       const isPasswordValid = await bcrypt.compare(
         data.password,
         user.password
@@ -35,12 +48,24 @@ class UserService {
       if (!isPasswordValid) {
         throw new Error("Invalid Password");
       }
-      //User logged in
-      return user;
+
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          role: user.role,
+        },
+        JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+
+      // return token to controller
+      return { token, user };
     } catch (error) {
       console.log("Error at User Service layer - login");
       throw error;
     }
   }
 }
+
 module.exports = new UserService();
