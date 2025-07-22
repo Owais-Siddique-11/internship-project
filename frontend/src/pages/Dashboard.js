@@ -1,12 +1,20 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom"; // ⬅️ Don't forget this import!
+import Pages from "../components/Pages";
 
-function Dashboard() {
+const Dashboard = () => {
   return (
     <div>
-      <h1>Welcome to the Dashboard!</h1>
-      <p>This is a protected area after login.</p>
+      <h2>Welcome to Admin Dashboard</h2>
+      
+      {/* ✅ Add New Page Button */}
+      <Link to="/admin/pages/add">
+        <button style={{ marginBottom: "15px" }}>Create New Page</button>
+      </Link>
+
+      <Pages />
     </div>
   );
-}
+};
 
 export default Dashboard;
