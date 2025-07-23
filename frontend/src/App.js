@@ -7,6 +7,9 @@ import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EditPage from "./components/EditPage";
 import AddPage from "./pages/AddPage";
+import Services from "./pages/Services";
+import Posts from "./pages/Posts";
+import Contacts from "./pages/Contacts";
 
 function App() {
   return (
@@ -15,18 +18,16 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* ✅ Protected route for Admin */}
+        {/* Admin Routes */}
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute element={<Dashboard />} allowedRole="admin" />
           }
         />
-
-        {/* ✅ Protected route for User */}
         <Route
-          path="/home"
-          element={<ProtectedRoute element={<Home />} allowedRole="user" />}
+          path="/admin/pages/add"
+          element={<ProtectedRoute element={<AddPage />} allowedRole="admin" />}
         />
         <Route
           path="/admin/pages/edit/:slug"
@@ -35,15 +36,27 @@ function App() {
           }
         />
         <Route
-  path="/admin/pages/add"
-  element={
-    <ProtectedRoute
-      element={<AddPage />}
-      allowedRole="admin"
-    />
-  }
-/>
+          path="/admin/services"
+          element={
+            <ProtectedRoute element={<Services />} allowedRole="admin" />
+          }
+        />
+        <Route
+          path="/admin/posts"
+          element={<ProtectedRoute element={<Posts />} allowedRole="admin" />}
+        />
+        <Route
+          path="/admin/contacts"
+          element={
+            <ProtectedRoute element={<Contacts />} allowedRole="admin" />
+          }
+        />
 
+        {/* User Route */}
+        <Route
+          path="/home"
+          element={<ProtectedRoute element={<Home />} allowedRole="user" />}
+        />
       </Routes>
     </Router>
   );

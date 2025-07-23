@@ -1,19 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom"; // ⬅️ Don't forget this import!
+import { Link } from "react-router-dom";
 import Pages from "../components/Pages";
+import AdminNavbar from "../components/AdminNavbar"; // ✅ Import it
 
 const Dashboard = () => {
   return (
-    <div>
-      <h2>Welcome to Admin Dashboard</h2>
-      
-      {/* ✅ Add New Page Button */}
-      <Link to="/admin/pages/add">
-        <button style={{ marginBottom: "15px" }}>Create New Page</button>
-      </Link>
+    <>
+      <AdminNavbar /> {/* ✅ Add Navbar */}
+      <div style={{ padding: "20px" }}>
+        <h2>Welcome to Admin Dashboard</h2>
 
-      <Pages />
-    </div>
+        {/* Create New Page Button */}
+        <Link to="/admin/pages/add">
+          <button style={{ marginBottom: "15px" }}>Create New Page</button>
+        </Link>
+
+        <Pages />
+      </div>
+    </>
   );
 };
 
