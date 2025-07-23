@@ -10,6 +10,9 @@ import AddPage from "./pages/AddPage";
 import Services from "./pages/Services";
 import Posts from "./pages/Posts";
 import Contacts from "./pages/Contacts";
+import UserServices from "./pages/UserServices";
+import UserPosts from "./pages/UserPosts";
+import UserContact from "./pages/UserContact";
 
 function App() {
   return (
@@ -56,6 +59,24 @@ function App() {
         <Route
           path="/home"
           element={<ProtectedRoute element={<Home />} allowedRole="user" />}
+        />
+        <Route
+          path="/user/services"
+          element={
+            <ProtectedRoute element={<UserServices />} allowedRole="user" />
+          }
+        />
+        <Route
+          path="/user/posts"
+          element={
+            <ProtectedRoute element={<UserPosts />} allowedRole="user" />
+          }
+        />
+        <Route
+          path="/user/contact"
+          element={
+            <ProtectedRoute element={<UserContact />} allowedRole="user" />
+          }
         />
       </Routes>
     </Router>
