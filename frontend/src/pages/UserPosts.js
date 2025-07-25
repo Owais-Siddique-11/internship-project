@@ -8,6 +8,7 @@ import "./UserPosts.css";
 const UserPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [expandedPosts, setExpandedPosts] = useState({});
   const token = localStorage.getItem("token");
 
   const fetchPosts = async () => {
@@ -32,6 +33,20 @@ const UserPosts = () => {
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  // Truncate content to a specific length
+  const truncateContent = (content, maxLength = 150) => {
+    if (content.length <= maxLength) return content;
+    return content.substr(0, content.lastIndexOf(' ', maxLength)) + '...';
+  };
+
+  // Toggle expanded state for a post
+  const toggleExpand = (postId) => {
+    setExpandedPosts(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
   };
 
   return (
@@ -67,10 +82,19 @@ const UserPosts = () => {
                       </span>
                     </div>
                     <div className="post-excerpt">
-                      <p>{post.content}</p>
+                      <p>
+                        {expandedPosts[post.id] 
+                          ? post.content 
+                          : truncateContent(post.content)}
+                      </p>
                     </div>
                     <div className="post-footer">
-                      <button className="read-more">Read Full Post</button>
+                      <button 
+                        className="read-more"
+                        onClick={() => toggleExpand(post.id)}
+                      >
+                        {expandedPosts[post.id] ? "Show Less" : "Read Full Post"}
+                      </button>
                     </div>
                   </div>
                 </article>
