@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Make sure this CSS file exists and has styles you want
+import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,12 +22,9 @@ const Login = () => {
         const user = response.data.data.user;
         const token = response.data.data.token;
         const role = user?.role?.toLowerCase();
-        console.log("User data:", user); // Helpful for debugging
 
-        // Extract role safely and normalize it
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
-        
 
         if (role === 'admin') {
           navigate('/dashboard');
@@ -45,31 +43,51 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      <p>
-        Don’t have an account?{' '}
-        <span className="signup-link" onClick={() => navigate('/signup')}>
-          Sign up
-        </span>
-      </p>
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-card animate-slide-up">
+          <h2 className="login-title">Welcome Back 👋</h2>
+          <form onSubmit={handleLogin} className="login-form">
+            <input
+              type="email"
+              className="login-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              required
+            />
+
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                className="login-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                required
+              />
+              <span
+                className="toggle-password"
+                onClick={() => setShowPassword((prev) => !prev)}
+                title={showPassword ? 'Hide Password' : 'Show Password'}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </span>
+            </div>
+
+            <button type="submit" className="login-button">
+              Login
+            </button>
+          </form>
+
+          <p className="signup-text">
+            Don't have an account?{' '}
+            <span className="signup-link" onClick={() => navigate('/signup')}>
+              Sign up
+            </span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

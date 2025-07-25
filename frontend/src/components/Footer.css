@@ -1,0 +1,88 @@
+/* Footer.css */
+.main-footer {
+  background-color: #1a202c;
+  color: #edf2f7;
+  padding: 20px;
+  margin-top: auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 15px;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  margin-bottom: 10px;
+}
+
+.footer-logo {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 5px;
+  color: #fff;
+}
+
+.footer-copy {
+  font-size: 14px;
+  color: #a0aec0;
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #667eea;
+  text-decoration: underline;
+}
+
+/* Adjust footer when sidebar is open */
+.admin-layout.sidebar-open .main-footer {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .admin-layout.sidebar-open .main-footer {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-links {
+    margin-top: 10px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-footer {
+    padding: 15px 10px;
+  }
+  
+  .footer-links {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+}

@@ -2,19 +2,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserNavbar from "../components/UserNavbar";
+import Footer from "../components/Footer";
+import "./UserPosts.css";
 
 const UserPosts = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
 
   const fetchPosts = async () => {
     try {
+      setLoading(true);
       const res = await axios.get("http://localhost:3005/api/v1/posts", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPosts(res.data.data);
+      setLoading(false);
     } catch (err) {
       console.error("Error fetching posts:", err);
+      setLoading(false);
     }
   };
 
@@ -22,16 +28,58 @@ const UserPosts = () => {
     fetchPosts();
   }, []);
 
+  // Format the date to be more readable
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   return (
-    <div>
+    <div className="user-layout">
       <UserNavbar />
-      <h2>Latest Blog Posts</h2>
-      {posts.map((post) => (
-        <div key={post.id} style={{ marginBottom: "20px" }}>
-          <h4>{post.title}</h4>
-          <p>{post.content}</p>
+      <main className="blog-main">
+        <div className="blog-container">
+          <div className="blog-header">
+            <h1 className="blog-title">Our Blog</h1>
+            <p className="blog-subtitle">
+              Stay up to date with our latest news and insights
+            </p>
+          </div>
+
+          {loading ? (
+            <div className="loading-state">
+              <div className="loader"></div>
+              <p>Loading posts...</p>
+            </div>
+          ) : posts.length === 0 ? (
+            <div className="empty-state">
+              <p>No blog posts available yet. Check back soon for updates!</p>
+            </div>
+          ) : (
+            <div className="blog-posts">
+              {posts.map((post) => (
+                <article key={post.id} className="blog-post">
+                  <div className="post-content">
+                    <h2 className="post-title">{post.title}</h2>
+                    <div className="post-meta">
+                      <span className="post-date">
+                        {formatDate(post.createdAt)}
+                      </span>
+                    </div>
+                    <div className="post-excerpt">
+                      <p>{post.content}</p>
+                    </div>
+                    <div className="post-footer">
+                      <button className="read-more">Read Full Post</button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
-      ))}
+      </main>
+      <Footer />
     </div>
   );
 };

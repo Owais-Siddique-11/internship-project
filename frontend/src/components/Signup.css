@@ -1,87 +1,161 @@
-body {
+/* Signup.css */
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  height: 100vh;
+  box-sizing: border-box;
+}
+
+.page-wrapper {
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  padding: 20px;
 }
 
 .signup-container {
-  background-color: #1e1e2f;
+  background: white;
+  border-radius: 20px;
   padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-  max-width: 400px;
   width: 100%;
-  animation: fadeInUp 0.6s ease-out;
-  color: #ffffff;
+  max-width: 450px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-out;
 }
 
-.signup-container h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  color: #00ffff;
-  font-size: 28px;
-}
-
-.signup-container input,
-.signup-container select {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 18px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  background-color: #2e2e3e;
-  color: #ffffff;
-  font-size: 15px;
-  transition: all 0.3s ease;
-}
-
-.signup-container input:focus,
-.signup-container select:focus {
-  box-shadow: 0 0 10px #00ffff;
-}
-
-.signup-container button {
-  width: 100%;
-  padding: 12px;
-  background-color: #00ffff;
-  color: #1e1e2f;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.signup-container button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 255, 255, 0.3);
-}
-
-.signup-container p {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.signup-container span {
-  color: #00ffff;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-/* Fade in animation */
-@keyframes fadeInUp {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
+  }
+}
+
+.signup-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #e1e8ed;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #667eea;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-field::placeholder {
+  color: #a0aec0;
+}
+
+.select-field {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 20px;
+  padding-right: 45px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 25px;
+  color: #718096;
+  font-size: 14px;
+}
+
+.link-text {
+  color: #667eea;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.link-text:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Animation for secret key field */
+.input-field {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .signup-container {
+    padding: 30px 20px;
+  }
+  
+  .signup-title {
+    font-size: 28px;
+  }
+  
+  .input-field {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  .submit-btn {
+    padding: 12px;
+    font-size: 14px;
   }
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './EditPage.css';
 
 function EditPage() {
   const { slug } = useParams();
@@ -13,7 +14,7 @@ function EditPage() {
     status: 'draft'
   });
 
-  const [pageId, setPageId] = useState(null); // Store page ID separately
+  const [pageId, setPageId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -21,7 +22,7 @@ function EditPage() {
     try {
       const response = await axios.get(`http://localhost:3005/api/v1/pages/${slug}`);
       setPageData(response.data.data);
-      setPageId(response.data.data.id); // Store ID for PUT request
+      setPageId(response.data.data.id);
       setLoading(false);
     } catch (err) {
       setError('Failed to fetch page');
@@ -31,7 +32,7 @@ function EditPage() {
 
   useEffect(() => {
     fetchPage();
-  }, [slug]); // correct dependency
+  }, [slug]);
 
   const handleChange = (e) => {
     setPageData({ ...pageData, [e.target.name]: e.target.value });
@@ -42,7 +43,7 @@ function EditPage() {
     try {
       const token = localStorage.getItem('token');
       await axios.put(
-        `http://localhost:3005/api/v1/pages/${pageId}`, // use pageId here
+        `http://localhost:3005/api/v1/pages/${pageId}`,
         pageData,
         {
           headers: {
@@ -57,59 +58,93 @@ function EditPage() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
-
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Edit Page</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title:</label><br />
-          <input
-            type="text"
-            name="title"
-            value={pageData.title}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <div className="edit-page-container">
+      <div className="edit-page-card">
+        <h2 className="edit-page-title">Edit Page</h2>
+        
+        {loading ? (
+          <div className="loading-state">
+            <div className="loader"></div>
+            <p>Loading page data...</p>
+          </div>
+        ) : error ? (
+          <div className="error-state">
+            <p className="error-message">{error}</p>
+            <button className="btn-retry" onClick={fetchPage}>
+              Try Again
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="edit-page-form">
+            <div className="form-group">
+              <label htmlFor="title" className="form-label">Title</label>
+              <input
+                id="title"
+                type="text"
+                name="title"
+                className="form-input"
+                value={pageData.title}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-        <div>
-          <label>Slug:</label><br />
-          <input
-            type="text"
-            name="slug"
-            value={pageData.slug}
-            onChange={handleChange}
-            required
-          />
-        </div>
+            <div className="form-group">
+              <label htmlFor="slug" className="form-label">Slug</label>
+              <input
+                id="slug"
+                type="text"
+                name="slug"
+                className="form-input"
+                value={pageData.slug}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-        <div>
-          <label>Content:</label><br />
-          <textarea
-            name="content"
-            value={pageData.content}
-            onChange={handleChange}
-            required
-          />
-        </div>
+            <div className="form-group">
+              <label htmlFor="content" className="form-label">Content</label>
+              <textarea
+                id="content"
+                name="content"
+                className="form-textarea"
+                value={pageData.content}
+                onChange={handleChange}
+                required
+                rows="8"
+              />
+            </div>
 
-        <div>
-          <label>Status:</label><br />
-          <select
-            name="status"
-            value={pageData.status}
-            onChange={handleChange}
-          >
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </select>
-        </div>
+            <div className="form-group">
+              <label htmlFor="status" className="form-label">Status</label>
+              <select
+                id="status"
+                name="status"
+                className="form-select"
+                value={pageData.status}
+                onChange={handleChange}
+              >
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </select>
+            </div>
 
-        <button type="submit" style={{ marginTop: '10px' }}>Update Page</button>
-      </form>
+            <div className="form-actions">
+              <button 
+                type="button" 
+                className="btn-cancel" 
+                onClick={() => navigate("/dashboard")}
+              >
+                Cancel
+              </button>
+              <button type="submit" className="btn-submit">
+                Update Page
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
     </div>
   );
 }

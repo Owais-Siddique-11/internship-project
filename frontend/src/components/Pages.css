@@ -1,0 +1,227 @@
+/* Pages.css */
+.pages-container {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.pages-container h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 25px;
+}
+
+.pages-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.pages-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  min-width: 800px; /* Ensures horizontal scroll */
+}
+
+.pages-table thead {
+  background: #f7fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.pages-table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.pages-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.pages-table tbody tr:hover {
+  background: #f7fafc;
+  transform: scale(1.01);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.pages-table td {
+  padding: 16px 20px;
+  color: #2d3748;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.pages-table td:first-child {
+  font-weight: 600;
+  color: #667eea;
+}
+
+/* Status styling */
+.pages-table td:nth-child(4) {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* Action buttons */
+.action-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 8px;
+}
+
+.edit-btn {
+  background: #4299e1;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #3182ce;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+}
+
+.delete-btn {
+  background: #f56565;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #e53e3e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 101, 101, 0.3);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+/* Empty state */
+.pages-table tbody:empty::after {
+  content: "No pages found";
+  display: block;
+  text-align: center;
+  padding: 40px;
+  color: #a0aec0;
+  font-size: 16px;
+}
+
+/* Row animations */
+.pages-table tbody tr {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Status-specific styling */
+.status-active {
+  color: #48bb78;
+  font-weight: 600;
+}
+
+.status-inactive {
+  color: #f56565;
+  font-weight: 600;
+}
+
+.status-draft {
+  color: #ed8936;
+  font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .pages-container {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 992px) {
+  .pages-container {
+    padding: 20px;
+  }
+  
+  .pages-table th,
+  .pages-table td {
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pages-container {
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .pages-container h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .pages-table th,
+  .pages-table td {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  .pages-table th {
+    font-size: 12px;
+  }
+  
+  .action-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pages-container {
+    padding: 10px;
+  }
+  
+  .pages-container h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .pages-table th,
+  .pages-table td {
+    padding: 10px 12px;
+  }
+  
+  .action-btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    margin-right: 0;
+  }
+  
+  .delete-btn {
+    margin-bottom: 0;
+  }
+}

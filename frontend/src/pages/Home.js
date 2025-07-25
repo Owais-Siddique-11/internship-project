@@ -2,19 +2,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UserNavbar from "../components/UserNavbar";
+import Footer from "../components/Footer";
+import "./Home.css";
 
 const Home = () => {
   const [pages, setPages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
 
   const fetchPages = async () => {
     try {
+      setLoading(true);
       const res = await axios.get("http://localhost:3005/api/v1/pages", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setPages(res.data.data);
+      // Filter for only published pages
+      const publishedPages = res.data.data.filter(page => page.status === 'published');
+      setPages(publishedPages);
+      setLoading(false);
     } catch (err) {
       console.error("Error fetching pages:", err);
+      setLoading(false);
     }
   };
 
@@ -23,16 +31,50 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="user-layout">
       <UserNavbar />
-      <h2>Welcome, User</h2>
-      <h3>Published Pages</h3>
-      {pages.map((page) => (
-        <div key={page.id} style={{ marginBottom: "20px" }}>
-          <h4>{page.title}</h4>
-          <p>{page.content}</p>
+      <main className="home-main">
+        <div className="home-container">
+          <div className="welcome-section">
+            <h1 className="welcome-title">Welcome to Our Website</h1>
+            <p className="welcome-subtitle">
+              Explore our pages, services, and blog posts
+            </p>
+          </div>
+
+          <section className="pages-section">
+            <h2 className="section-title">Published Pages</h2>
+            
+            {loading ? (
+              <div className="loading-state">
+                <div className="loader"></div>
+                <p>Loading pages...</p>
+              </div>
+            ) : pages.length === 0 ? (
+              <div className="empty-state">
+                <p>No published pages available yet.</p>
+              </div>
+            ) : (
+              <div className="pages-grid">
+                {pages.map((page) => (
+                  <div key={page.id} className="page-card">
+                    <h3 className="page-title">{page.title}</h3>
+                    <div className="page-content">
+                      <p>{page.content}</p>
+                    </div>
+                    <div className="page-footer">
+                      <span className="page-date">
+                        {new Date(page.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
         </div>
-      ))}
+      </main>
+      <Footer />
     </div>
   );
 };
