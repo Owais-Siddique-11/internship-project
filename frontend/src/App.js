@@ -13,6 +13,7 @@ import Contacts from "./pages/Contacts";
 import UserServices from "./pages/UserServices";
 import UserPosts from "./pages/UserPosts";
 import UserContact from "./pages/UserContact";
+import PageView from "./pages/PageView"; 
 
 function App() {
   return (
@@ -53,6 +54,10 @@ function App() {
           <Route
             path="/home"
             element={<ProtectedRoute element={<Home />} allowedRole="user" />}
+          />
+          <Route
+            path="/page/:slug"
+            element={<ProtectedRoute element={<PageView />} allowedRole="user" />}
           />
           <Route
             path="/user/services"

@@ -232,3 +232,24 @@
     padding: 30px 15px;
   }
 }
+.page-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.page-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.read-more {
+  color: #007bff;
+  font-size: 0.9rem;
+  font-weight: 500;
+}

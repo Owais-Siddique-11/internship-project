@@ -1,0 +1,88 @@
+/* src/pages/PageView.css */
+.page-view-main {
+  padding: 40px 20px;
+  min-height: calc(100vh - 200px);
+  background-color: #f9f9f9;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.page-article {
+  padding: 40px;
+}
+
+.page-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.page-title {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.page-meta {
+  display: flex;
+  gap: 20px;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.page-content {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #444;
+}
+
+.page-content p {
+  margin-bottom: 20px;
+}
+
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.back-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #2980b9;
+}
