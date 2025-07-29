@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "root",
-    "password": "Machine@123",
-    "database": "internship_project",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "sql12792561",
+    "password": "cxazg6pDw1",
+    "database": "sql12792561",
+    "host": "sql12.freesqldatabase.com",
+    "dialect": "mysql",
+    "port": 3306
   },
   "test": {
     "username": "root",
@@ -14,10 +15,11 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "sql12792561",
+    "password": "cxazg6pDw1",
+    "database": "sql12792561",
+    "host": "sql12.freesqldatabase.com",
+    "dialect": "mysql",
+    "port": 3306
   }
 }
