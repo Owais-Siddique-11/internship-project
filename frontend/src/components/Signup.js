@@ -36,7 +36,7 @@ const Signup = () => {
     }
 
     try {
-      await axios.post('http://localhost:3005/api/v1/signup', dataToSend);
+      await axios.post('https://www.google.com/url?q=http://sql12.freesqldatabase.com&source=gmail&ust=1753882047456000&usg=AOvVaw0wmAfdhpAqIkrx7REOHVSH/api/v1/signup', dataToSend);
       alert('Signup successful 🎉');
       navigate('/');
     } catch (error) {
